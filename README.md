@@ -1,3 +1,5 @@
+# Rust Programming Language Docker Images
+
 [![Build Status](https://travis-ci.org/fnichol/docker-rust.svg?branch=master)](https://travis-ci.org/fnichol/docker-rust)
 
 ## Supported tags
