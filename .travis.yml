@@ -32,6 +32,6 @@ after_script:
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - echo docker push "$image"
-  - if [ -n "$LATEST" ]; then echo docker push "${IMAGE_BASE}:latest"; fi
+  - docker push "$image"
+  - if [ -n "$LATEST" ]; then docker push "${IMAGE_BASE}:latest"; fi
   - rm -rf "$HOME/.docker"
