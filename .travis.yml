@@ -6,22 +6,32 @@ services:
   - docker
 
 env:
-  - VERSION=nightly VARIANT=
-  - VERSION=nightly VARIANT=slim
-  - VERSION=1.4.0 VARIANT=
-  - VERSION=1.4.0 VARIANT=slim
-  - VERSION=1.3.0 VARIANT=
-  - VERSION=1.3.0 VARIANT=slim
-  - VERSION=1.2.0 VARIANT=
-  - VERSION=1.2.0 VARIANT=slim
+  global:
+    - IMAGE_BASE=fnichol/rust
+  matrix:
+    - VERSION=nightly VARIANT= LATEST=true
+    - VERSION=nightly VARIANT=slim
+    - VERSION=1.4.0 VARIANT=
+    - VERSION=1.4.0 VARIANT=slim
+    - VERSION=1.3.0 VARIANT=
+    - VERSION=1.3.0 VARIANT=slim
+    - VERSION=1.2.0 VARIANT=
+    - VERSION=1.2.0 VARIANT=slim
 
 before_script:
   - env | sort
   - cd "$VERSION"
-  - image="fnichol/rust:$VERSION${VARIANT:+-$VARIANT}"
+  - image="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
 
 script:
   - docker build -t "$image" "${VARIANT:-.}"
+  - if [ -n "$LATEST" ]; then docker build -t "${IMAGE_BASE}:latest" "${VARIANT:-.}"; fi
 
 after_script:
   - docker images
+
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - echo docker push "$image"
+  - if [ -n "$LATEST" ]; then echo docker push "${IMAGE_BASE}:latest"; fi
+  - rm -rf "$HOME/.docker"
