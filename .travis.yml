@@ -31,8 +31,5 @@ after_script:
   - popd
   - docker images
 
-deploy:
-  provider: script
-  script: scripts/deploy.sh
-  on:
-    branch: master
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then sh scripts/deploy.sh; fi
