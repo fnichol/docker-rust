@@ -21,17 +21,17 @@ env:
 before_script:
   - env | sort
   - cd "$VERSION"
-  - image="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
+  - IMAGE="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
 
 script:
-  - docker build -t "$image" "${VARIANT:-.}"
+  - docker build -t "$IMAGE" "${VARIANT:-.}"
   - if [ -n "$LATEST" ]; then docker build -t "${IMAGE_BASE}:latest" "${VARIANT:-.}"; fi
 
 after_script:
   - docker images
 
-after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push "$image"
-  - if [ -n "$LATEST" ]; then docker push "${IMAGE_BASE}:latest"; fi
-  - rm -rf "$HOME/.docker"
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: master
