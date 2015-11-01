@@ -1,0 +1,27 @@
+language: bash
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  - VERSION=nightly VARIANT=
+  - VERSION=nightly VARIANT=slim
+  - VERSION=1.4.0 VARIANT=
+  - VERSION=1.4.0 VARIANT=slim
+  - VERSION=1.3.0 VARIANT=
+  - VERSION=1.3.0 VARIANT=slim
+  - VERSION=1.2.0 VARIANT=
+  - VERSION=1.2.0 VARIANT=slim
+
+before_script:
+  - env | sort
+  - cd "$VERSION"
+  - image="fnichol/rust:$VERSION${VARIANT:+-$VARIANT}"
+
+script:
+  - docker build -t "$image" "${VARIANT:-.}"
+
+after_script:
+  - docker images
