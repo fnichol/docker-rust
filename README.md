@@ -7,6 +7,7 @@
 - [`nightly` (*nightly/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/nightly/Dockerfile)
 - [`nightly-slim` (*nightly/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/nightly/slim/Dockerfile)
 - [`1.4.0` (*1.4.0/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.4.0/Dockerfile)
+- [`1.4.0-musl` (*1.4.0/musl/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.4.0/musl/Dockerfile)
 - [`1.4.0-slim` (*1.4.0/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.4.0/slim/Dockerfile)
 - [`1.3.0` (*1.3.0/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.3.0/Dockerfile)
 - [`1.3.0-slim` (*1.3.0/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.3.0/slim/Dockerfile)
@@ -36,6 +37,10 @@ This is the defacto image. If you are unsure about what your needs are, you prob
 ### `fnichol/rust:<version>-slim`
 
 This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run `rustc` and `cargo` for most projects. Unless you are working in an evironment where **only** the rust image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
+
+### `fnichol/rust:<version>-musl`
+
+This image has a source-build version of Rust (and Cargo) which is has has [musl](http://www.musl-libc.org/) support with the compiler. This enables a `--target x86_64-unknown-linux-musl` target for `rustc` and `cargo build` which can lead to completely static binaries with no reliance on a libc at runtime. For more information, check out the [Rust book](https://doc.rust-lang.org/stable/book/advanced-linking.html) and this [Rust pull request](https://github.com/rust-lang/rust/pull/24777) with more details.
 
 ## License
 
