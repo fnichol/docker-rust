@@ -14,7 +14,6 @@ RUN curl -s https://static.rust-lang.org/rustup.sh \
 
 ENV CARGO_HOME /cargo
 ENV SRC_PATH /src
-ENV PATH $SRC_PATH/target/release:$SRC_PATH:/target/debug:$PATH
 
 RUN mkdir -p "$CARGO_HOME" "$SRC_PATH"
 WORKDIR $SRC_PATH
