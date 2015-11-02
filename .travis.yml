@@ -27,9 +27,9 @@ before_script:
 script:
   - docker build -t "$IMAGE" "${VARIANT:-.}"
   - if [ -n "$LATEST" ]; then docker build -t "${IMAGE_BASE}:latest" "${VARIANT:-.}"; fi
+  - popd
 
 after_script:
-  - popd
   - docker images
 
 after_success:
