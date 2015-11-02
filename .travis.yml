@@ -21,7 +21,7 @@ env:
 before_script:
   - env | sort
   - pushd "$VERSION"
-  - IMAGE="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
+  - export IMAGE="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
 
 script:
   - docker build -t "$IMAGE" "${VARIANT:-.}"
