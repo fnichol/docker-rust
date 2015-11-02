@@ -13,7 +13,6 @@ env:
     - VERSION=nightly VARIANT=slim
     - VERSION=1.4.0 VARIANT=
     - VERSION=1.4.0 VARIANT=slim
-    - VERSION=1.4.0 VARIANT=musl
     - VERSION=1.3.0 VARIANT=
     - VERSION=1.3.0 VARIANT=slim
     - VERSION=1.2.0 VARIANT=
