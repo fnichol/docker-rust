@@ -24,7 +24,41 @@ Rust is a general-purpose, multi-paradigm, compiled programming language develop
 
 ## How to use this image
 
-Please hold...
+### Compile your app or library inside a Docker container
+
+There may be occasions where it is not appropriate to run your app inside a container. To compile, but not run your app inside the instance, you can write something like this:
+
+```console
+docker run --rm -v "$PWD":/src fnichol/rust:1.4.0 cargo build --release
+```
+
+This will add your current directory as a volume to the container and run the command `cargo build --release` which will perform a release build (i.e. no debug symbols) of your project and output the executable under `./target/release/`. Alternatively, if you have a `Makefile`, you can run the `make` command inside your container.
+
+```console
+docker run --rm -v "$PWD":/src fnichol/rust:1.4.0 make
+```
+
+### Run your app inside a Docker container
+
+While you are strongly encouraged to repackage a smaller Docker image with your compiled app for production use, it may be useful to run your app in development. For this, you can invoke `cargo run`:
+
+```console
+docker run --rm -v "$PWD":/src fnichol/rust:1.4.0 cargo run
+```
+
+### Caching CARGO_HOME
+
+All the images set the `CARGO_HOME` environment variable to `/cargo` which means that you can use the [data volume pattern](http://docs.docker.com/userguide/dockervolumes/#creating-and-mounting-a-data-volume-container) to cache the contents of `/cargo` between runs of containers. First, you need to set up a data volume container to host the Cargo home:
+
+```console
+docker create -v /cargo --name cargo-cache tianon/true /bin/true
+```
+
+Finally, use the `--volumes-from` flag when starting containers to mount `/cargo` in:
+
+```console
+docker run --rm -v "$PWD":/src --volumes-from cargo-cache fnichol/rust:1.4.0 cargo build
+```
 
 ## Image variants
 
