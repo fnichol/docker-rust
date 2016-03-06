@@ -24,13 +24,9 @@ env:
 
 before_script:
   - env | sort
-  - pushd "$VERSION"
-  - export IMAGE="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
 
 script:
-  - docker build -t "$IMAGE" "${VARIANT:-.}"
-  - if [ -n "$LATEST" ]; then docker build -t "${IMAGE_BASE}:latest" "${VARIANT:-.}"; fi
-  - popd
+  - sh scripts/build.sh
 
 after_script:
   - docker images

@@ -1,10 +1,14 @@
 #!/usr/bin/env sh
 set -eu
 
-banner() { echo "--> $*"; }
-info() { echo "    $*"; }
+if [ -n "${DEBUG:-}" ]; then
+  set -x
+fi
 
-IMAGE="${1:-${IMAGE}}"
+banner() { echo " ---> $*"; }
+info() { echo "      $*"; }
+
+IMAGE="${IMAGE_BASE}:$VERSION${VARIANT:+-$VARIANT}"
 
 banner "Logging in to Docker Hub..."
 docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -24,4 +28,4 @@ fi
 info "Cleaning up"
 rm -rf "$HOME/.docker/config.json"
 
-banner "Deploy $IMAGE complete"
+banner "Deploy $IMAGE complete."
