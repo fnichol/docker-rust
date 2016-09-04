@@ -11,6 +11,9 @@ env:
   matrix:
     - VERSION=nightly VARIANT= LATEST=true
     - VERSION=nightly VARIANT=slim
+    - VERSION=1.10.0 VARIANT=
+    - VERSION=1.10.0 VARIANT=slim
+    - VERSION=1.10.0 VARIANT=musl
     - VERSION=1.9.0 VARIANT=
     - VERSION=1.9.0 VARIANT=slim
     - VERSION=1.9.0 VARIANT=musl

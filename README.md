@@ -6,6 +6,9 @@
 
 - [`nightly` (*nightly/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/nightly/Dockerfile)
 - [`nightly-slim` (*nightly/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/nightly/slim/Dockerfile)
+- [`1.10.0` (*1.10.0/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.10.0/Dockerfile)
+- [`1.10.0-musl` (*1.10.0/musl/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.10.0/musl/Dockerfile)
+- [`1.10.0-slim` (*1.10.0/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.10.0/slim/Dockerfile)
 - [`1.9.0` (*1.9.0/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.9.0/Dockerfile)
 - [`1.9.0-musl` (*1.9.0/musl/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.9.0/musl/Dockerfile)
 - [`1.9.0-slim` (*1.9.0/slim/Dockerfile*)](https://github.com/fnichol/docker-rust/blob/master/1.9.0/slim/Dockerfile)
@@ -44,13 +47,13 @@ Rust is a general-purpose, multi-paradigm, compiled programming language develop
 There may be occasions where it is not appropriate to run your app inside a container. To compile, but not run your app inside the instance, you can write something like this:
 
 ```console
-docker run --rm -v $(pwd):/src fnichol/rust:1.9.0 cargo build --release
+docker run --rm -v $(pwd):/src fnichol/rust:1.10.0 cargo build --release
 ```
 
 This will add your current directory as a volume to the container and run the command `cargo build --release` which will perform a release build (i.e. no debug symbols) of your project and output the executable under `./target/release/`. Alternatively, if you have a `Makefile`, you can run the `make` command inside your container.
 
 ```console
-docker run --rm -v $(pwd):/src fnichol/rust:1.9.0 make
+docker run --rm -v $(pwd):/src fnichol/rust:1.10.0 make
 ```
 
 ### Run your app inside a Docker container
@@ -58,7 +61,7 @@ docker run --rm -v $(pwd):/src fnichol/rust:1.9.0 make
 While you are strongly encouraged to repackage a smaller Docker image with your compiled app for production use, it may be useful to run your app in development. For this, you can invoke `cargo run`:
 
 ```console
-docker run --rm -v $(pwd):/src fnichol/rust:1.9.0 cargo run
+docker run --rm -v $(pwd):/src fnichol/rust:1.10.0 cargo run
 ```
 
 ### Caching CARGO_HOME
@@ -72,7 +75,7 @@ docker create -v /cargo --name cargo-cache tianon/true /bin/true
 Finally, use the `--volumes-from` flag when starting containers to mount `/cargo` in:
 
 ```console
-docker run --rm -v $(pwd):/src --volumes-from cargo-cache fnichol/rust:1.9.0 cargo build
+docker run --rm -v $(pwd):/src --volumes-from cargo-cache fnichol/rust:1.10.0 cargo build
 ```
 
 ## Image variants
