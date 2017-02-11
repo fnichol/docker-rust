@@ -7,15 +7,15 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 ENV RUST_VERSION 1.11.0
-
-RUN curl -s https://static.rust-lang.org/rustup.sh \
-  | sh -s -- --yes --disable-sudo --revision=$RUST_VERSION \
-  && rustc --version && cargo --version
-
 ENV CARGO_HOME /cargo
+ENV PATH $CARGO_HOME/bin:/root/.cargo/bin:$PATH
 ENV SRC_PATH /src
 
-RUN mkdir -p "$CARGO_HOME" "$SRC_PATH"
+RUN curl -sSf https://sh.rustup.rs \
+  | env -u CARGO_HOME sh -s -- -y --default-toolchain "$RUST_VERSION" \
+  && rustc --version && cargo --version \
+  && mkdir -p "$CARGO_HOME" "$SRC_PATH"
+
 WORKDIR $SRC_PATH
 
 CMD ["/bin/bash"]

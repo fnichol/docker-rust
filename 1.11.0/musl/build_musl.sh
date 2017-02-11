@@ -6,7 +6,7 @@ if [ -n "${DEBUG:-}" ]; then set -x; fi
 # in https://github.com/asaaki/rust-musl/blob/master/tools/scripts/build.sh.
 # Very many thanks!
 
-: ${MUSL_VERSION:=1.1.14}
+: ${MUSL_VERSION:=1.1.16}
 : ${BUILDROOT:=/prep}
 
 musl_root=/usr/local/musl
