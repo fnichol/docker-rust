@@ -11,6 +11,9 @@ env:
   matrix:
     - VERSION=nightly VARIANT= LATEST=true
     - VERSION=nightly VARIANT=slim
+    - VERSION=1.15.1 VARIANT=
+    - VERSION=1.15.1 VARIANT=slim
+    - VERSION=1.15.1 VARIANT=musl
     - VERSION=1.15.0 VARIANT=
     - VERSION=1.15.0 VARIANT=slim
     - VERSION=1.15.0 VARIANT=musl
@@ -23,12 +26,6 @@ env:
     - VERSION=1.12.0 VARIANT=
     - VERSION=1.12.0 VARIANT=slim
     - VERSION=1.12.0 VARIANT=musl
-    - VERSION=1.11.0 VARIANT=
-    - VERSION=1.11.0 VARIANT=slim
-    - VERSION=1.11.0 VARIANT=musl
-    - VERSION=1.10.0 VARIANT=
-    - VERSION=1.10.0 VARIANT=slim
-    - VERSION=1.10.0 VARIANT=musl
 
 before_script:
   - env | sort
