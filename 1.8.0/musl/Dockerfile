@@ -1,4 +1,4 @@
-FROM buildpack-deps:jessie
+FROM buildpack-deps:stretch
 MAINTAINER Fletcher Nichol <fnichol@nichol.ca>
 
 RUN apt-get update \

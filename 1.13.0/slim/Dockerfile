@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Fletcher Nichol <fnichol@nichol.ca>
 
 RUN apt-get update \
